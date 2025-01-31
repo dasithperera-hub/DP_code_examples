@@ -10,21 +10,22 @@ import os
 # Get all FASTQ files in directory
 fastq_files = sorted(glob.glob("*.fastq"))
 
-# create a dictionary to store file pairs based on their sample name (eg. DP1, DP2, DP3)
+# create a dictionary to store file pairs based on their sample info
 paired_reads = {}
 
-# Categorize files into pairs based on sample name
+# Categorize files into pairs based on information upstream of _R i.e. the condition
 for file in fastq_files:
     condition = file.split("_R")[0]  
+    #check if already present and assigning empty R1 and R2 keys 
     if condition not in paired_reads:
         paired_reads[condition] = {"R1": None, "R2": None}
-
+#Look for R1 and R2 for each paired file
     if "_R1.fastq" in file:
         paired_reads[condition]["R1"] = file
     elif "_R2.fastq" in file:
         paired_reads[condition]["R2"] = file
 
-# Run bowtie2 for each matched pair, hpara is the index name. checking for presence of both R1 and R2 files
+# Run bowtie2 for each matched pair, hpara is the index name. Output error if file pair is missing
 for condition, files in paired_reads.items():
     r1, r2 = files["R1"], files["R2"]
     if r1 and r2:  
