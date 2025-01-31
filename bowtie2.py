@@ -1,7 +1,7 @@
-#this script is used to run bowtie2 on multiple paired-end FASTQ files in the same directory
+#this script was used to run bowtie2 on multiple paired-end FASTQ files in the same directory
 #It assumes that the paired files are named in the format "ConditionX_y_R1.fastq" and "ConditionX_y_R2.fastq"
-#it assumes that the index is named "hpara" 
-#It will run bowtie2 for each pair of files and output a SAM file with the same name as the condition
+#it assumes that the index is named "hpara". see line 33
+#It will run bowtie2 for each pair of files and output a SAM file with the same name based on information upstream of _R
 
 
 import glob
